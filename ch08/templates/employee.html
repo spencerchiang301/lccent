@@ -1,0 +1,82 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>員工清單</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 40px;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #3498db;
+            color: white;
+        }
+
+        th, td {
+            padding: 14px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: #f1faff;
+        }
+
+        th:first-child,
+        td:first-child {
+            width: 10%;
+        }
+
+        td {
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>員工清單</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>名</th>
+                <th>姓</th>
+                <th>薪水</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.employee_id }}</td>
+                <td>{{ emp.first_name }}</td>
+                <td>{{ emp.last_name }}</td>
+                <td>${{ "{:,.0f}".format(emp.salary) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

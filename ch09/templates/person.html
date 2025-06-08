@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person Info</title>
+</head>
+<body>
+  年齡判定:
+   {% if age >= 18 %}
+   <p> 成年人</p>
+   {% else %}
+  <p> 未成年人</p>
+  {% endif %}
+
+  <ul>
+    {% for name in names %}
+    <li>
+      {{ name }}
+    </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

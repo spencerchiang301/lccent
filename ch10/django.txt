@@ -1,0 +1,189 @@
+Web development
+
+1. MVC 架構
+Module - 定義資料欄位地方
+View - UI 顯示部份
+Controller - 定義邏輯
+
+pyenv versions -> list all installed version
+
+Django 安裝過程
+1. django 套件
+   pip install django
+2. 建立 django 專案
+   django-admin startproject djangodemo
+---------- powershell ----------------------
+
+3. open project (用 pycharm or vscode 打開專案)
+4. create virtualenv for project 
+5. install django for virtualenv
+6. start the project
+   python manage.py runserver
+--------------------------------------------
+django 架構部份 
+ manage.py - command line tool
+ djangodemo
+   - settings.py - 專案設定
+   - urls.py     - 全域routing
+
+一個 project 下面可以有好幾個 APP
+python manage.py startapp myapp
+python manage.py startapp myfood
+
+myapp.views -> UI
+
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+def index(request):
+    return HttpResponse("index page")
+
+myapp.urls -> routing
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path("index", views.index, name='index'),
+    path("about", views.about, name='about'),
+]
+
+djangodemo.urlr ->包進來
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path("myapp/", include("myapp.urls"))
+]
+
+------------------------------------------
+
+樣板 myapp/templates 放 html
+1. 把 myapp 設到 installed_apps
+2. render -> index.html
+
+
+-----------------------------------------
+傳參數, urls.py
+
+path("hello/<str:name>", views.index, name='hello'),
+    path("question/<int:id>", views.question, name='question')
+
+views.py
+def hello(request, name):
+    return render(request, "hello.html", {'name':name})
+
+
+templates/hello.html
+<h2>hello, {{name}}</h2>
+
+-------------------------------------------
+和 mysql 做整合
+pip install mysqlclient
+
+在djangodemo/settings.py 改DB 設定
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydb',
+        'USER': 'root',
+        'PASSWORD': 'nicole',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "set sql_mode='STRICT_TRANS_TABLES"
+        }
+    }
+}
+
+1. myapp.models 定義資料表的結構
+2. python manage.py makemigrations
+3. python manage.py migrate
+4. python manage.py showmigratiosn
+
+--------------------------------------------
+http://localhost:8000/admin
+
+python manage.py createsuperuser
+
+staff -> allow to login admin site
+
+------------------------------------------------------------------------
+django shell 去進行 CRUD 操作
+
+python manage.py shell
+
+-------- query --------------
+1. query all users 
+   users = User.objects.all()
+2. get first person
+   users[0]
+   users[0].email
+   users[0].first_name
+   users[0].last_name
+3. for user in users:
+   print(user.username, user.email, user.first_name, user.last_name, user.is_staff, user.is_superuser, user.is_active) 
+
+----- get, filter -----------------------
+User.objects.get(username='jack')
+User.objects.filter(last_name='chou')
+
+User.objects.filter(last_name='chou', first_name__icontains='m')
+
+select * from auth_user where last_name='chou' and first_name like '%m%';
+
+User.objects.filter(is_staff=False)
+
+User.objects.create_user(username='user1', email='user1@twces.com', password='abc123')
+
+u = User.objects.get(username='user1')
+u.set_password('123456')
+u.save()
+
+User.objects.get(username='user1').delete()
+exit()
+-----------------------------------------------------------------------
+from myapp.models import Article
+import random
+
+user = User.objects.create_user(username='author1',password='abc123')
+for i in range(1,21):
+   Article.objects.create(
+   	author=user,
+   	title=f"Title {i}",
+   	content=f"This is {i}'s content, django is good",
+   	published=random.choice([True,False])
+   )
+
+select u.id, u.username, ma.content, ma.title 
+from auth_user as u 
+left join myapp_article ma on u.id = ma.author_id
+where u.id=11;
+----------------------------------------------
+author = User.objects.get(username='author1')
+author.article_set.all()
+u = author.article_set.get(id=7)
+u.id
+u.content
+
+author.article_set.filter(published=True) 
+
+lists= author.article_set.order_by('-created_at')[:5]
+for list in lists:
+     list.created_at
+
+select u.id, u.username, ma.content, ma.title, ma.created_at 
+from auth_user as u 
+left join myapp_article ma on u.id = ma.author_id
+where u.id =11 order by ma.created_at desc limit 5;
+
+----------------------------------------------
+ui -> django -> db 
+db -> django -> ui
+
+
+好幾次來回得到同樣的東西
+ui -> django -> db 
+db -> django -> ui

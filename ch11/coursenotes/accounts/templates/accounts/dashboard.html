@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title%} Login {%endblock%}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Welcome {{ user.username }}, {{ user.email }}</h2>
+<p>This is your dashboard</p>
+
+<ul>
+    <li>Total Courses: {{ course_count }}</li>
+    <li>Total Notes: {{ note_count }}</li>
+    <li>Visits this session: {{ visit_count }}</li>
+    {% if latest_note %}
+        <li>Lasted note: <strong>{{latest_note.title}} ({{ latest_note.created_at|date:"Y-m-d H:i"}})</strong></li>
+    {% else %}
+        <li>No notes created yet.</li>
+    {% endif %}
+    <li>Total Courses: {{ course_count }}</li>
+</ul>
+<p><a href="{% url 'course_list'%}">Go to Course list</a></p>
+<p><a href="{% url 'logout' %}">Logout</a></p>
+{% endblock %}

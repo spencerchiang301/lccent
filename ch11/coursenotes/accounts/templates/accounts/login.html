@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title%} Login {%endblock%}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Login">
+    </form>
+    <div class="google login">
+        <p><a href="">使用Google 登入</a></p>
+    </div>
+    <div class="register-link">
+        <p>No account? <a href="{% url 'register' %}">Register here</a></p>
+    </div>
+</div>
+{% endblock %}

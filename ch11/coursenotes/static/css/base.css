@@ -1,0 +1,37 @@
+/* static/css/base.css */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+}
+
+.top-menu {
+    background-color: #1e293b;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    gap: 16px;
+}
+
+.top-menu a {
+    color: #f8fafc;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.top-menu a:hover {
+    background-color: #334155;
+}
+
+a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

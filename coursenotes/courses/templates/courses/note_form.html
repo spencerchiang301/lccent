@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+{% endblock %}
+
+{% block title %}Notes{% endblock %}
+{% block content %}
+<head>
+  <title></title>
+  {{ form.media }}  <!-- ⬅️ 這行必加！ -->
+</head>
+<body>
+  <h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Note</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+  <a href="{% url 'note_list' course.id %}">← Back to Notes</a>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Notes{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>📝 Notes for {{ course.title }}</h2>
+
+<div class="note-toolbar">
+  <form method="get" class="search-form">
+    <label for="course">Switch Course:</label>
+    <select name="course" onchange="location = this.value;">
+      {% for c in all_courses %}
+        <option value="{% url 'note_list' c.id %}" {% if c.id == course.id %}selected{% endif %}>{{ c.title }}</option>
+      {% endfor %}
+    </select>
+
+    <input type="text" name="q" placeholder="Search notes..." value="{{ request.GET.q }}">
+    <button type="submit">Search</button>
+  </form>
+  <a href="{% url 'note_add' course.id %}" class="add-note">+ Add Note</a>
+</div>
+
+<div class="note-list">
+  {% for note in notes %}
+    <div class="note-item">
+      <div class="note-header">
+        <strong>{{ note.title }}</strong>
+        <span class="note-date">{{ note.created_at|date:"Y-m-d H:i" }}</span>
+      </div>
+      {% if note.tags.exists %}
+        <div class="note-tags">
+          {% for tag in note.tags.all %}
+            <span class="tag">{{ tag.name }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <div class="note-actions">
+        <a href="{% url 'note_edit' course.id note.id %}">Edit</a>
+        <a href="{% url 'note_delete' course.id note.id %}">Delete</a>
+      </div>
+    </div>
+  {% empty %}
+    <p>No notes found.</p>
+  {% endfor %}
+</div>
+
+<p><a href="{% url 'course_list' %}">← Back to Course List</a></p>
+{% endblock %}

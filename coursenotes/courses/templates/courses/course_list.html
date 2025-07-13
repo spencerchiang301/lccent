@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Courses{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/courses.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Your Courses</h2>
+<div class="course-grid">
+  {% for course in courses %}
+    <div class="course-card">
+      <h3>{{ course.title }}</h3>
+      <p>{{ course.description }}</p>
+      <div class="course-actions">
+        <a href="{% url 'note_list' course.id %}">📝 Notes</a>
+        <a href="{% url 'course_edit' course.id %}">✏️ Edit</a>
+        <a href="{% url 'course_delete' course.id %}">🗑️ Delete</a>
+      </div>
+    </div>
+  {% empty %}
+    <p>No courses yet. <a href="{% url 'course_add' %}">Add one now</a></p>
+  {% endfor %}
+</div>
+{% endblock %}

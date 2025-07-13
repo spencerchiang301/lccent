@@ -1,0 +1,21 @@
+{% load static %}
+<html>
+<head>
+  <title>{% block title %}My Site{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="top-menu">
+        <a href="{% url 'dashboard' %}">🏠 Dashboard</a>
+        <a href="{% url 'course_list' %}">📋 Courses</a>
+        <a href="{% url 'course_add' %}">➕ Add Course</a>
+        <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
+
+    <div style="padding: 20px;">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

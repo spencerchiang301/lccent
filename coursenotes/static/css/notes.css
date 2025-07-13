@@ -1,0 +1,81 @@
+.note-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-form select,
+.search-form input {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.search-form button {
+  padding: 6px 12px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  background-color: #1d4ed8;
+}
+
+.add-note {
+  font-weight: bold;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.note-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.note-item {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 14px 18px;
+  border-radius: 10px;
+}
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.note-tags {
+  margin-bottom: 8px;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #dbeafe;
+  color: #1e40af;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.note-actions a {
+  margin-right: 10px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.note-actions a:hover {
+  text-decoration: underline;
+}

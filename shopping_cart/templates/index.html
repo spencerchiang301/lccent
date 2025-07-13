@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}首頁 - 購物車系統{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">歡迎來到購物車系統</h1>
+    <p class="lead">這是一個使用 Flask 和 MySQL 建立的教學範例購物車系統</p>
+    <hr class="my-4">
+    <p>系統功能包括：</p>
+    <ul>
+        <li>使用者註冊、登入、登出</li>
+        <li>瀏覽產品列表</li>
+        <li>購物車管理（新增、修改、刪除）</li>
+        <li>訂單結帳與查詢</li>
+    </ul>
+    {% if not session.user_id %}
+    <p class="mt-4">
+        <a class="btn btn-primary btn-lg me-2" href="{{ url_for('register') }}" role="button">立即註冊</a>
+        <a class="btn btn-outline-primary btn-lg" href="{{ url_for('login') }}" role="button">登入</a>
+    </p>
+    {% else %}
+    <p class="mt-4">
+        <a class="btn btn-primary btn-lg" href="{{ url_for('products') }}" role="button">開始購物</a>
+    </p>
+    {% endif %}
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">豐富商品</h5>
+                <p class="card-text">提供多樣化的商品選擇，滿足您的各種需求。</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">安全購物</h5>
+                <p class="card-text">使用安全的加密技術保護您的個人資料。</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">便捷結帳</h5>
+                <p class="card-text">簡單快速的結帳流程，讓您輕鬆完成購物。</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

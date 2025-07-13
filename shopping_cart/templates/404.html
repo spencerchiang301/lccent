@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}頁面不存在 - 購物車系統{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="display-1">404</h1>
+    <p class="fs-3"><span class="text-danger">哎呀！</span> 找不到頁面。</p>
+    <p class="lead">您要找的頁面不存在。</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">回到首頁</a>
+</div>
+{% endblock %}

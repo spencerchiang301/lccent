@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}伺服器錯誤 - 購物車系統{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="display-1">500</h1>
+    <p class="fs-3"><span class="text-danger">哎呀！</span> 發生錯誤。</p>
+    <p class="lead">伺服器遇到錯誤，無法完成您的請求。</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">回到首頁</a>
+</div>
+{% endblock %}

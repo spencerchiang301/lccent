@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}我的訂單 - 購物車系統{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">我的訂單</h2>
+
+{% if orders %}
+    {% for order in orders %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>訂單編號：#{{ order.id }}</strong>
+                </div>
+                <div class="col-md-6 text-end">
+                    <span class="badge bg-{% if order.status == 'completed' %}success{% elif order.status == 'cancelled' %}danger{% else %}warning{% endif %}">
+                        {% if order.status == 'completed' %}已完成{% elif order.status == 'cancelled' %}已取消{% else %}處理中{% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="mb-2"><strong>訂單日期：</strong>{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+            <p class="mb-3"><strong>總金額：</strong>NT$ {{ "{:,.0f}".format(order.total_amount) }}</p>
+            
+            <h6>訂單明細：</h6>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>商品名稱</th>
+                        <th>單價</th>
+                        <th>數量</th>
+                        <th>小計</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>NT$ {{ "{:,.0f}".format(item.price) }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>NT$ {{ "{:,.0f}".format(item.price * item.quantity) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+<div class="alert alert-info">
+    <h5 class="alert-heading">尚無訂單記錄</h5>
+    <p class="mb-0">您還沒有任何訂單。</p>
+    <hr>
+    <a href="{{ url_for('products') }}" class="btn btn-primary">前往購物</a>
+</div>
+{% endif %}
+{% endblock %}

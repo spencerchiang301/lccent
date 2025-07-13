@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}登入 - 購物車系統{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">會員登入</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('login') }}">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">使用者名稱或電子郵件</label>
+                        <input type="text" class="form-control" id="username" name="username" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">密碼</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">登入</button>
+                </form>
+                <div class="text-center mt-3">
+                    <p>還沒有帳號？<a href="{{ url_for('register') }}">立即註冊</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
